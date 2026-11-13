@@ -30,7 +30,9 @@ python3 -m http.server 4173
 本網站是純靜態 HTML/CSS/JavaScript，沒有建置步驟，也沒有外部依賴。
 可直接部署到 GitHub Pages、Netlify、Vercel 或任何靜態檔案伺服器。
 
-GitHub Pages 網址：<https://chanchingcarlos.github.io/HKDSE_2027/>
+英文版網站（同一 repo）：<https://chanchingcarlos.github.io/HKDSE_2027/>
+
+GitHub Pages 網址：<https://chanchingcarlos.github.io/HKDSE_2027/maths/>
 
 ## 檔案結構
 
