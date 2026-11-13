@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-Hant-HK" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>拆解所 — HKDSE 數學 Level 1 → 3</title>
+<meta name="description" content="HKDSE 數學必修部分自學基地：19 個課題、426 題、因式分解 10 招、無限操練、全科模擬卷、錯題簿與公式大全。專攻 Level 1–3。">
+<meta name="theme-color" content="#f4f0e6">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2313201b'/%3E%3Cpath d='M14 14h16v16H14zM34 14h16v16H34zM14 34h16v16H14z' fill='%23ffd166'/%3E%3Cpath d='M38 40l8 8m0-8l-8 8' stroke='%23f4f0e6' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#app">跳去主要內容</a>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar" aria-label="主選單">
+    <a class="brand" href="#/home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="27" height="27">
+          <rect width="32" height="32" rx="8" fill="currentColor"/>
+          <path d="M6 6h8v8H6zM18 6h8v8h-8zM6 18h8v8H6z" fill="var(--brand-tile)"/>
+          <path d="M18 22h8m-4-4v8" stroke="var(--brand-plus)" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>拆解所</strong>
+        <small>HKDSE MATH · L1 → L3</small>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav"></nav>
+
+    <div class="sidebar-foot">
+      <div class="mini-progress">
+        <div class="mini-progress-head">
+          <span id="sideLevel">見習拆解員</span>
+          <strong id="sidePct">0%</strong>
+        </div>
+        <div class="bar"><i id="sideBar" style="width:0%"></i></div>
+        <div class="mini-xp"><span id="sideXp">0 XP</span><span id="sideTopics">0 / 19 課</span></div>
+      </div>
+      <button class="theme-btn wide" id="themeBtn" type="button" aria-label="切換深色模式">
+        <span class="theme-icon">◐</span><span id="themeLabel">深色模式</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="打開選單" aria-expanded="false">☰</button>
+      <div class="crumbs" id="crumbs"></div>
+      <div class="topstats" id="topstats"></div>
+    </header>
+
+    <main id="app" tabindex="-1"></main>
+
+    <footer class="site-foot">
+      <p><strong>拆解所</strong> · 為 HKDSE 2027 準備嘅數學自學基地。進度只存喺你部電腦（localStorage）。</p>
+      <p class="tiny">課程依照 HKDSE 數學必修部分編排，Level 1–3 為目標難度，並非考評局官方分級。模擬卷為原創擬真題，並非官方試題。</p>
+    </footer>
+  </div>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+<div id="modalRoot"></div>
+
+<script src="assets/js/data/factorisation.js"></script>
+<script src="assets/js/data/site.js"></script>
+<script src="assets/js/data/topics-number-a.js"></script>
+<script src="assets/js/data/topics-number-b.js"></script>
+<script src="assets/js/data/topics-shape.js"></script>
+<script src="assets/js/data/topics-data.js"></script>
+<script src="assets/js/data/questions-number-a.js"></script>
+<script src="assets/js/data/questions-number-b.js"></script>
+<script src="assets/js/data/questions-shape.js"></script>
+<script src="assets/js/data/questions-data.js"></script>
+<script src="assets/js/data/mocks.js"></script>
+<script src="assets/js/gen.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
