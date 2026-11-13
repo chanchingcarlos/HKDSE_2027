@@ -53,18 +53,68 @@
 
   /* ---------- data accessors ---------- */
   D.grammar = (window.DSE_GRAMMAR || []).slice();
+  if (window.DSE_GRAMMAR_EXTRA) {
+    D.grammar.forEach(function (t) {
+      var add = window.DSE_GRAMMAR_EXTRA[t.id];
+      if (add && add.length) t.drills = (t.drills || []).concat(add);
+    });
+  }
+
   var seenWords = {};
-  D.vocab = (window.DSE_VOCAB_A || []).concat(window.DSE_VOCAB_B || []).concat(window.DSE_VOCAB_C || []).filter(function (v) {
-    if (!v || !v.w || seenWords[v.w.toLowerCase()]) return false;
-    seenWords[v.w.toLowerCase()] = 1; return true;
-  });
+  D.vocab = (window.DSE_VOCAB_A || []).concat(window.DSE_VOCAB_B || []).concat(window.DSE_VOCAB_C || [])
+    .concat(window.DSE_VOCAB_D || []).concat(window.DSE_VOCAB_E || []).filter(function (v) {
+      if (!v || !v.w || seenWords[v.w.toLowerCase()]) return false;
+      seenWords[v.w.toLowerCase()] = 1; return true;
+    });
   D.vocabByWord = {};
   D.vocab.forEach(function (v) { D.vocabByWord[v.w.toLowerCase()] = v; });
+
   D.writing = window.DSE_WRITING || { overview: {}, formats: [], sentenceBank: [], prompts: [] };
+  if (window.DSE_WRITING_EXTRA) {
+    var wx = window.DSE_WRITING_EXTRA;
+    if (wx.prompts) D.writing.prompts = (D.writing.prompts || []).concat(wx.prompts);
+    if (wx.sentenceBank) D.writing.sentenceBank = (D.writing.sentenceBank || []).concat(wx.sentenceBank);
+    if (wx.formatPhrases) {
+      (D.writing.formats || []).forEach(function (f) {
+        if (wx.formatPhrases[f.id]) f.phrases = (f.phrases || []).concat(wx.formatPhrases[f.id]);
+      });
+    }
+  }
+
   D.speaking = window.DSE_SPEAKING || { overview: {}, phrases: [], topics: [], individualPrompts: [], pronunciation: [], commonErrors: [] };
+  if (window.DSE_SPEAKING_EXTRA) {
+    var sx = window.DSE_SPEAKING_EXTRA;
+    if (sx.topics) D.speaking.topics = (D.speaking.topics || []).concat(sx.topics);
+    if (sx.individualPrompts) D.speaking.individualPrompts = (D.speaking.individualPrompts || []).concat(sx.individualPrompts);
+    if (sx.phrases) {
+      sx.phrases.forEach(function (g) {
+        var target = (D.speaking.phrases || []).filter(function (p) { return p.fn === g.fn; })[0];
+        if (target) target.items = (target.items || []).concat(g.items || []);
+        else D.speaking.phrases.push(g);
+      });
+    }
+  }
+
   D.listening = window.DSE_LISTENING || { overview: {}, traps: [], spelling: [], numberDrill: [], integrated: { workflow: [], textTypes: [], checklist: [] }, dictation: [] };
+  if (window.DSE_LISTENING_DRILLS_EXTRA) {
+    var lx = window.DSE_LISTENING_DRILLS_EXTRA;
+    if (lx.numberDrill) D.listening.numberDrill = (D.listening.numberDrill || []).concat(lx.numberDrill);
+    if (lx.spelling) D.listening.spelling = (D.listening.spelling || []).concat(lx.spelling);
+    if (lx.dictation) D.listening.dictation = (D.listening.dictation || []).concat(lx.dictation);
+  }
+
   D.reading = window.DSE_READING || { overview: {}, questionTypes: [], passages: [], examTips: [] };
+  if (window.DSE_READING_EXTRA && window.DSE_READING_EXTRA.passages) {
+    D.reading.passages = (D.reading.passages || []).concat(window.DSE_READING_EXTRA.passages);
+  }
+
   D.ppListening = window.DSE_PP_LISTENING || { tasks: [], integrated: [], examTips: [] };
+  if (window.DSE_LISTENING_TASKS_EXTRA) {
+    var ltx = window.DSE_LISTENING_TASKS_EXTRA;
+    if (ltx.tasks) D.ppListening.tasks = (D.ppListening.tasks || []).concat(ltx.tasks);
+    if (ltx.integrated) D.ppListening.integrated = (D.ppListening.integrated || []).concat(ltx.integrated);
+  }
+
   D.plan = window.DSE_PLAN || { phases: [], weeks: [], dailyHabits: [] };
 
   D.topicById = function (id) { return D.grammar.filter(function (t) { return t.id === id; })[0]; };

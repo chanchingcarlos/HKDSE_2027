@@ -32,7 +32,7 @@
     root.innerHTML =
       '<div class="page-head"><div class="eyebrow">Grammar clinic</div>' +
       '<h1 class="page-title">唔使學晒英文文法，只學你會錯嘅。</h1>' +
-      '<p class="page-lede">呢 21 課係 Level 1 學生最常失分嘅位。每課 5–8 分鐘，做完即刻知點解錯。<b>目標：每課 4 題全對。</b></p></div>' +
+      '<p class="page-lede">呢 21 課係 Level 1 學生最常失分嘅位。每課 8–12 分鐘，做完即刻知點解錯。<b>目標：每課全部答對。</b></p></div>' +
 
       '<div class="card tight" style="margin-bottom:22px"><div class="between">' +
       '<div><span class="small muted">已完成 </span><b style="font-size:20px">' + p.grammarDone + " / " + p.grammarTotal + "</b></div>" +
@@ -131,11 +131,13 @@
         '<div class="stat"><div class="k">測驗最佳</div><div class="v">' + (D.state.vocab.quizBest || 0) + "</div><div class=\"s\">每輪 10 題</div></div></div>" +
 
         '<div class="card"><div class="card-title-sm">開始一輪</div>' +
-        '<div class="grid cols-2" style="margin-top:12px;align-items:end">' +
+        '<div class="grid cols-3" style="margin-top:12px;align-items:end">' +
         '<div class="field" style="margin:0"><label>揀邊啲字</label><select class="select" id="cardFilter">' +
         '<option value="due">需要重溫優先（Box 1–2）</option>' +
         '<option value="new">未睇過</option>' +
         '<option value="all">全部</option></select></div>' +
+        '<div class="field" style="margin:0"><label>程度</label><select class="select" id="bandFilter">' +
+        '<option value="">Level 2 + 3</option><option value="2">Level 2</option><option value="3">Level 3</option></select></div>' +
         '<div class="field" style="margin:0"><label>一輪幾多張</label><select class="select" id="cardCount">' +
         '<option value="10">10 張（約 4 分鐘）</option><option value="20">20 張（約 8 分鐘）</option><option value="30">30 張</option></select></div></div>' +
         '<button class="btn primary lg block" id="startCards" style="margin-top:14px">開始學習卡</button>' +
@@ -148,7 +150,8 @@
         '<div class="card"><div class="between"><div><div class="card-title-sm">10 題快測</div>' +
         '<h3 style="margin:4px 0 2px">字義 + 句子填空</h3>' +
         '<p class="small muted">隨機抽 10 個字。答錯會即刻解釋。最佳成績：<b>' + (D.state.vocab.quizBest || 0) + "/10</b></p></div>" +
-        '<button class="btn primary" id="startQuiz">開始測驗</button></div></div>' +
+        '<div class="row tight"><select class="select" id="quizBand" style="width:auto"><option value="">全部程度</option><option value="2">Level 2</option><option value="3">Level 3</option></select>' +
+        '<button class="btn primary" id="startQuiz">開始測驗</button></div></div></div>' +
         '<div id="quizMount" style="margin-top:18px"></div>';
     }
 
@@ -160,6 +163,7 @@
         '<div class="search" style="flex:1;min-width:200px"><input class="input" id="wordSearch" placeholder="搜尋英文或中文…" autocomplete="off"></div>' +
         '<select class="select" id="tagFilter" style="width:auto"><option value="">所有主題</option>' +
         Object.keys(tags).map(function (t) { return '<option value="' + D.esc(t) + '">' + D.esc(t) + " (" + tags[t] + ")</option>"; }).join("") + "</select>" +
+        '<select class="select" id="bandFilterList" style="width:auto"><option value="">所有程度</option><option value="2">Level 2</option><option value="3">Level 3</option></select>' +
         '<select class="select" id="boxFilter" style="width:auto"><option value="">所有狀態</option>' +
         '<option value="new">未睇過</option><option value="low">Box 1–2</option><option value="high">Box 3–5</option></select>' +
         '<span class="small muted" id="wordCount">' + D.vocab.length + " 個字</span></div></div>" +
@@ -182,8 +186,10 @@
     if (tab === "cards") {
       D.$("#startCards", root).addEventListener("click", function () {
         var f = D.$("#cardFilter", root).value;
+        var band = D.$("#bandFilter", root).value;
         var n = +D.$("#cardCount", root).value;
         var pool = D.vocab.filter(function (v) {
+          if (band && String(v.band) !== band) return false;
           var b = boxes[v.w] || 0;
           if (f === "due") return b < 3;
           if (f === "new") return !D.state.vocab.seen[v.w];
@@ -199,7 +205,9 @@
 
     if (tab === "quiz") {
       D.$("#startQuiz", root).addEventListener("click", function () {
-        var qs = D.vocabQuestions(D.vocab, 10);
+        var band = D.$("#quizBand", root).value;
+        var pool = band ? D.vocab.filter(function (v) { return String(v.band) === band; }) : D.vocab;
+        var qs = D.vocabQuestions(pool, 10);
         D.mountQuiz(D.$("#quizMount", root), qs, {
           instant: true, xp: 3, kind: "cards", backHref: "#/vocab",
           onDone: function (score, total) {
@@ -216,9 +224,11 @@
       function draw() {
         var q = D.$("#wordSearch", root).value.trim().toLowerCase();
         var tag = D.$("#tagFilter", root).value;
+        var band = D.$("#bandFilterList", root).value;
         var bf = D.$("#boxFilter", root).value;
         var list = D.vocab.filter(function (v) {
           if (tag && v.tag !== tag) return false;
+          if (band && String(v.band) !== band) return false;
           var b = boxes[v.w] || 0;
           if (bf === "new" && D.state.vocab.seen[v.w]) return false;
           if (bf === "low" && b >= 3) return false;
@@ -232,10 +242,10 @@
           return '<div class="word-item"><div class="w">' + D.esc(v.w) + '<span class="pos">' + D.esc(v.pos) + "</span></div>" +
             '<div class="zh">' + D.esc(v.zh) + "</div>" +
             '<div class="ex">' + D.esc(v.ex) + "</div>" +
-            '<div class="tagline"><span class="badge">' + D.esc(v.tag) + "</span><span class=\"tiny faint\">Box " + ((boxes[v.w] || "新")) + "</span></div></div>";
+            '<div class="tagline"><span class="badge">' + D.esc(v.tag) + '</span><span class="badge">Lv' + D.esc(v.band) + "</span><span class=\"tiny faint\">Box " + ((boxes[v.w] || "新")) + "</span></div></div>";
         }).join("");
       }
-      ["#wordSearch", "#tagFilter", "#boxFilter"].forEach(function (sel) {
+      ["#wordSearch", "#tagFilter", "#bandFilterList", "#boxFilter"].forEach(function (sel) {
         var el = D.$(sel, root);
         el.addEventListener(el.tagName === "INPUT" ? "input" : "change", draw);
       });

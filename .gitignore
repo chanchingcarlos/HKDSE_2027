@@ -6,3 +6,6 @@ node_modules/
 HKDSE_2027/
 factorisation/
 docs/
+
+# parallel content files from another workstream — not part of this site
+assets/js/data/levels-*.js
