@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+node_modules/
+
+# separate work-in-progress found in this folder — leave untouched
+HKDSE_2027/
+factorisation/
+docs/

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-Hant-HK" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Level Up — DSE English 1 → 2</title>
+<meta name="description" content="由 Level 1 升 Level 2 的 DSE 英文自學基地：20 週計劃、文法診所、單字庫、寫作模板、閱讀聆聽說話訓練、Past Paper 區與錯題簿。">
+<meta name="theme-color" content="#f6f2e9">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2316181d'/%3E%3Cpath d='M16 44V32h8v12zM28 44V24h8v20zM40 44V16h8v28z' fill='%23ffd43b'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css?v=6">
+<script>
+  /* avoid a flash of the wrong theme */
+  (function () {
+    try {
+      var s = JSON.parse(localStorage.getItem("dse_levelup_v1") || "{}");
+      var mode = (s.settings && s.settings.theme) || "auto";
+      var dark = mode === "dark" || (mode === "auto" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+<a class="skip-link" href="#app">跳去主要內容</a>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar" aria-label="主選單">
+    <a class="brand" href="#/dashboard">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="26" height="26"><rect width="32" height="32" rx="8" fill="currentColor"/><path d="M8 23v-6h4v6zm6 0V13h4v10zm6 0V8h4v15z" fill="var(--brand-bars)"/></svg>
+      </span>
+      <span class="brand-text">
+        <strong>Level Up</strong>
+        <small>DSE English 1 → 2</small>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav"></nav>
+
+    <div class="sidebar-foot">
+      <div class="mini-progress">
+        <div class="mini-progress-head">
+          <span>課程完成度</span>
+          <strong id="sidePct">0%</strong>
+        </div>
+        <div class="bar"><i id="sideBar" style="width:0%"></i></div>
+      </div>
+      <button class="icon-btn wide" id="themeBtn" type="button" aria-label="切換深色模式">
+        <span class="theme-icon">◐</span><span id="themeLabel">深色模式</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="打開選單" aria-expanded="false">☰</button>
+      <div class="crumbs" id="crumbs"></div>
+      <div class="topstats" id="topstats"></div>
+    </header>
+
+    <main id="app" tabindex="-1"></main>
+
+    <footer class="site-foot">
+      <p>整俾自己用嘅 DSE 英文自學基地 · 進度只存喺你部電腦（localStorage）</p>
+      <p class="tiny">Past Paper 區為原創擬真題，並非考評局官方試題。官方試題請到 HKEAA 或學校索取。</p>
+    </footer>
+  </div>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+<div id="modalRoot"></div>
+
+<script src="assets/js/data/grammar.js?v=6"></script>
+<script src="assets/js/data/vocab-a.js?v=6"></script>
+<script src="assets/js/data/vocab-b.js?v=6"></script>
+<script src="assets/js/data/vocab-c.js?v=6"></script>
+<script src="assets/js/data/writing.js?v=6"></script>
+<script src="assets/js/data/speaking-listening.js?v=6"></script>
+<script src="assets/js/data/reading.js?v=6"></script>
+<script src="assets/js/data/pastpaper-listening.js?v=6"></script>
+<script src="assets/js/data/plan.js?v=6"></script>
+<script src="assets/js/core.js?v=6"></script>
+<script src="assets/js/drills.js?v=6"></script>
+<script src="assets/js/views-home.js?v=6"></script>
+<script src="assets/js/views-study.js?v=6"></script>
+<script src="assets/js/views-skills.js?v=6"></script>
+<script src="assets/js/views-pastpaper.js?v=6"></script>
+<script src="assets/js/app.js?v=6"></script>
+</body>
+</html>
