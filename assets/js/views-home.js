@@ -83,6 +83,7 @@
       "</div></section>" +
       '<p class="tiny faint" style="margin:8px 0 26px">「準備度」係你嘅練習完成度（按四份卷佔分加權），用嚟提示進度，<b>唔係 DSE 預測等級</b>。</p>' +
 
+      '<h2 class="sr-only">本週概況</h2>' +
       '<div class="grid cols-3">' +
       '<div class="card"><div class="card-title-sm">本周 · 第 ' + wk.n + " 週</div>" +
       "<h3 style=\"margin:4px 0 2px\">" + D.esc(wk.title) + "</h3>" +
