@@ -852,7 +852,7 @@
       if (f.strand !== "all" && strandOf(x.topic) !== f.strand) return false;
       if (f.lv !== "all" && +x.lv !== +f.lv) return false;
       if (q) {
-        var hay = (x.q + " " + x.a + " " + topicName(x.topic) + " " + (x.methodTitle || "")).toLowerCase();
+        var hay = (x.q + " " + x.a + " " + topicName(x.topic) + " " + (x.methodTitle || "") + " " + (x.formula || "")).toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
