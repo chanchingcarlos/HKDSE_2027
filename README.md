@@ -92,3 +92,13 @@ assets/
 - 網址：<https://chanchingcarlos.github.io/HKDSE_2027/maths/>
 - 內容：19 個課題、426 條連步驟題目、因式分解 10 招、DSE 試卷樣式、全科模擬卷、錯題簿、公式大全。
 - 原始碼：`maths/`
+
+---
+
+## 中文網站（新增）
+
+同一個 repo 亦收錄咗 **拾級 · DSE 中文三級特訓**：
+
+- 網址：<https://chanchingcarlos.github.io/HKDSE_2027/chinese/>
+- 內容：12 組指定文言範文逐篇詳解（背景、段意、字詞、句譯、手法、主旨、跨篇比較、DSE 題型、自測）、卷一閱讀、卷二實用／命題寫作、SBA 匯報、14 日路線、錯題簿。
+- 原始碼：`chinese/`
